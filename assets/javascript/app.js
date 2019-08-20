@@ -1,40 +1,12 @@
 var topics = ["wrc", "lfc", "rallycross", "drifting", "imsa", "mr-robot"]
 
-function loadTopics() {
-  $("#topics").empty();
-  for (i = 0; i < topics.length; i++) {
-    newButton = $("<button>");
-    // add topic to id attribute
-    newButton.attr("id", topics[i]);
-    // add bootstrap btn class
-    newButton.addClass("btn btn-info");
-    // add the topic name to the button
-    newButton.text(topics[i]);
-    // Lastly append the new button to #gifs
-    $("#topics").append(newButton);
-  }
-
-  $("#gif-search").on("click", function () {
-    event.preventDefault();
-    // This line of code will grab the input from the textbox
-    var topic = $("#gif-search").val().trim();
-
-    // The movie from the textbox is then added to our array
-    topics.push(topic);
-
-    // Calling renderButtons which handles the processing of our movie array
-    loadTopics();
-
-  });
-}
-
 $(document).ready(function () {
 
-  loadTopics(); // loads initial topics
-
-  $(".btn").on("click", function () {
+  // this function pulls the gifs from giphy
+  function fetchGifs() {
+    var topic = $(this).attr("data-topic");
     var baseURL = "https://api.giphy.com/v1/gifs/search?api_key=OXaAQusBTQE0O5Sl8XgfGrioVNpsQBj3&limit=10&q=";
-    var queryURL = baseURL + this.id;
+    var queryURL = baseURL + topic;
     $.ajax({
       url: queryURL,
       method: "GET"
@@ -55,25 +27,63 @@ $(document).ready(function () {
         newGif.addClass("gif") // add the gif class to the image
         newGif.appendTo("#gifs"); // add to the gifs w
       }
-
-      $(".gif").on("click", function () {
-        var gif = $(this);
-        var animated = gif.attr("data-animated");
-        var still = gif.attr("data-still");
-
-        if (gif.attr("data-state") === "still") {
-          gif.attr("src", animated);
-          gif.attr("data-state", "animated");
-        } else {
-          gif.attr("src", still);
-          gif.attr("data-state", "still");
-        }
-      });
-
-
     });
 
+  };
+
+  // this function allows us to toggle the gif state
+  function changeGifState() {
+    var gif = $(this);
+    var animated = gif.attr("data-animated");
+    var still = gif.attr("data-still");
+
+    if (gif.attr("data-state") === "still") {
+      gif.attr("src", animated);
+      gif.attr("data-state", "animated");
+    } else {
+      gif.attr("src", still);
+      gif.attr("data-state", "still");
+    }
+  };
+
+  // thie function just loads the buttons across the top of the screen, including new buttons.
+  function loadTopics() {
+    $("#topics").empty();
+    for (i = 0; i < topics.length; i++) {
+      newButton = $("<button>");
+      // add topic to id attribute
+      newButton.attr("data-topic", topics[i]);
+      // add bootstrap btn class
+      newButton.addClass("btn btn-info");
+      // add the topic name to the button
+      newButton.text(topics[i]);
+      // Lastly append the new button to #gifs
+      $("#topics").append(newButton);
+    }
+  }
+
+  // click event for adding a new search button
+  $("#add-gif").on("click", function (event) {
+    event.preventDefault();
+    // This line of code will grab the input from the textbox
+    var topic = $("#gif-search").val().trim();
+
+    // The movie from the textbox is then added to our array
+    topics.push(topic);
+
+    // clear search bar
+    $("#gif-search").val("");
+
+    // Calling renderButtons which handles the processing of our movie array
+    loadTopics();
 
   });
-});
 
+  $(document).on("click", ".btn ", fetchGifs);
+  // adds the ability to toggle gif states.
+  $(document).on("click", ".gif", changeGifState);
+
+
+  loadTopics(); // loads initial topics
+
+});
