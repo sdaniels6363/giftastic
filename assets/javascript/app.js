@@ -25,7 +25,7 @@ $(document).ready(function () {
         newGif.attr("data-still", stillGIF); // source url of static image
         newGif.attr("data-animated", animatedGIF); // source url of animated image
         newGif.addClass("gif") // add the gif class to the image
-        newGif.appendTo("#gifs"); // add to the gifs w
+        newGif.prependTo("#gifs"); // add to the gifs w
       }
     });
 
