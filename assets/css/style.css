@@ -30,6 +30,7 @@ input{
   width: 80vw;
 }
 
+
 /* Ids */
 
 #topics{
@@ -53,7 +54,7 @@ input{
 }
 
 #gif-wrapper{
-  height: 100vh;;
+  height: auto;
 }
 
 #instructions{
