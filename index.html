@@ -21,36 +21,46 @@
 <body>
 
   <header>
+    <h1 id="fun-header">I can haz GIFS!!!</h1>
 
   </header>
   <main>
     <div class="container">
-      <div class="row" id="search-and-topics">
-        <div class="col-md-4">
+
+
+      <div class="row" id="search">
+        <div class="col-md-12">
           <div id="custom">
+            <!-- this is the custom search -->
             <form action="">
-                <input type="text" id="gif-search">
-                <input id="add-gif" type="submit" value="GIF Search">
-          
+              <input type="text" id="gif-search">
+              <input id="add-gif" type="submit" value="Add Topic">
             </form>
           </div>
         </div>
-        <div class="col-md-8">
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-12">
           <div id="topics">
             <!-- gif buttons will be populated here via javascript -->
           </div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <h3>I can haz GIFS!!!</h3>
-        </div>
-      </div>
 
       <div class="row">
         <div class="col-md-12">
-          <div id="gif-wrapper">
+          <div>
+            <p id="instructions">Select a topic from the row above to fetch the top 10 GIFS from that topic.  Or you can enter a custom topic, once you click Add Topic it will be added to the row of topics and you can then select it!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" id="gif-wrapper">
+        <div class="col-md-12">
+          <div>
             <div class="gifs" id="gifs">
               <!-- fetched gifs will be assigned here. -->
             </div>
