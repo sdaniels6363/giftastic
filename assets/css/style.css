@@ -68,3 +68,9 @@ input{
   color: black;
 }
 
+@media screen and (max-width: 500px) {
+  #topics{
+    margin-top: 20px;
+  }
+
+}
