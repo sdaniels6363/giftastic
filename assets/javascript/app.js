@@ -1,4 +1,4 @@
-var topics = ["chappelle","rick and morty", "family guy", "saturday night live", "anchorman", "the other guys", "step brothers", "vice principals", "eastbound and down", "tropic thunder"]
+var topics = ["chappelle", "rick and morty", "family guy", "saturday night live", "anchorman", "the other guys", "step brothers", "vice principals", "eastbound and down", "tropic thunder"]
 
 $(document).ready(function () {
 
@@ -76,22 +76,41 @@ $(document).ready(function () {
   // this function just loads the buttons across the top of the screen, including new buttons.
   function loadTopics() {
 
+    // set empty array
+    storedOffset = [];
+    topicWithDashesArr = [] // empty array to hold data-topics that have had spaces replaced with dashes.
+
+    // set the base offset
+    for (i = 0; i < topics.length; i++) {
+      storedOffset.push("0"); // for each item in topics, set a base offset of zero.
+    }
+    // convert the spaces in the topics and convert them to dashes
+    for (i = 0; i < topics.length; i++) {
+      topicReplace = topics[i].replace(/ /g, "-");
+      topicWithDashesArr.push(topicReplace);
+    }
     // this loop gathers the data-offsets per button
-    for (i = 0; i < topics.length; i++){
-      var buttonOffset = $('button[data-topic='+topics[i]+']').attr("data-offset");
-
-
+    for (i = 0; i < topics.length; i++) {
+      if ($('button[data-topic=' + topicWithDashesArr[i] + ']').attr("data-offset")) {
+        var buttonOffset = $('button[data-topic="' + topicWithDashesArr[i] + '"]').attr("data-offset");
+        storedOffset[i] = buttonOffset; // replaces the default 0 offset at the appropriate index into the stored array
+      } else {
+        // if no offset is defined for the button
+        storedOffset.push("0"); // set to 0 if undefined.
+      }
     }
 
-
+    // below here resets the buttons
     $("#topics").empty();
+
+
     for (i = 0; i < topics.length; i++) {
       // create a new button
       newButton = $("<button>");
       // add data-topic to button attribute
-      newButton.attr("data-topic", topics[i]);
+      newButton.attr("data-topic", topicWithDashesArr[i]);
       // add pagination incrementing
-      newButton.attr("data-offset", "0")
+      newButton.attr("data-offset", storedOffset[i])
       // add bootstrap btn class
       newButton.addClass("btn");
       // add the topic name to the button
