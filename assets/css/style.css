@@ -1,7 +1,9 @@
+/* elements */
+
 header{
   width: 100vw;
   height: 50px;
-  background-color: #9b2d2d;
+  background-color: #0f9d58;
   border-bottom: 2px solid #000000;
   margin-bottom: 20px;
 }
@@ -9,33 +11,52 @@ main{
   margin: 0;
   position: relative;
 }
+input{
+  border: 1px solid #000000;
+}
+
+/* classes */
 
 .btn{
-  margin-right: 1rem;
+  margin: 0.5rem;
+  background-color: #0f9d58;
+  color: #ffffff;
+  border: 1px solid #000000;
 }
 
 .container{
-  position: relative;
+  padding: 0px;
+  margin-left: 10vw;
+  width: 80vw;
 }
+
+/* Ids */
 
 #topics{
-  width: 70vw;
+  margin: 0;
   height: 10vh;
+  position: relative;
+  height: auto;
 }
 
-#search-and-topics{
-  padding: 10px;
-margin: 0px 0px 20px 0px;  
+#search{
+  padding: 20px 0px 20px 20px;
   background-color: #777777;
-  width: 70vw;
-  height: 10vh;
+  height: 70px;
 
+}
+
+#instructions, #fun-header{
+  color: #ffffff;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  text-align: center;
 }
 
 #gif-wrapper{
-  padding: 10px;
-  margin-bottom: 20px;
-  width: 70vw;
-  height: 10vh;
-  background-color: aqua;
+  height: 100vh;;
 }
+
+#instructions{
+  color: black;
+}
+
