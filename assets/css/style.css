@@ -47,10 +47,16 @@ input{
 
 }
 
-#instructions, #fun-header{
+#fun-header{
   color: #ffffff;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-family: 'Shadows Into Light', cursive;
   text-align: center;
+}
+
+#instructions{
+  text-align: center;
+  color:#ffffff;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 #gif-wrapper{
