@@ -1,4 +1,4 @@
-var topics = ["chappelle", "family guy", "saturday night live", "anchorman", "the other guys", "step brothers", "vice principals", "eastbound and down", "tropic thunder"]
+var topics = ["chappelle","rick and morty", "family guy", "saturday night live", "anchorman", "the other guys", "step brothers", "vice principals", "eastbound and down", "tropic thunder"]
 
 $(document).ready(function () {
 
@@ -71,12 +71,24 @@ $(document).ready(function () {
     }
   };
 
-  // thie function just loads the buttons across the top of the screen, including new buttons.
+
+
+  // this function just loads the buttons across the top of the screen, including new buttons.
   function loadTopics() {
+
+    // this loop gathers the data-offsets per button
+    for (i = 0; i < topics.length; i++){
+      var buttonOffset = $('button[data-topic='+topics[i]+']').attr("data-offset");
+
+
+    }
+
+
     $("#topics").empty();
     for (i = 0; i < topics.length; i++) {
+      // create a new button
       newButton = $("<button>");
-      // add topic to id attribute
+      // add data-topic to button attribute
       newButton.attr("data-topic", topics[i]);
       // add pagination incrementing
       newButton.attr("data-offset", "0")
