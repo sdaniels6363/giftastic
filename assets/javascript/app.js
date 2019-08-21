@@ -1,12 +1,22 @@
-var topics = ["wrc", "formula 1", "rally cross", "silverstone", "le mans", "nurburgring"]
+var topics = ["chappelle", "family guy", "saturday night live", "anchorman", "the other guys", "step brothers", "vice principals", "eastbound and down", "tropic thunder"]
 
 $(document).ready(function () {
 
   // this function pulls the gifs from giphy
   function fetchGifs() {
     var topic = $(this).attr("data-topic");
-    var baseURL = "https://api.giphy.com/v1/gifs/search?api_key=OXaAQusBTQE0O5Sl8XgfGrioVNpsQBj3&limit=10&rating=g&q=";
-    var queryURL = baseURL + topic;
+    var dataOffset = $(this).attr("data-offset");
+    console.log(dataOffset);
+    var offset = Math.imul(parseInt(dataOffset), 10); // by default the number will be zero, but each time the button is selected, it will increment by 1, and multiple by 10.  This will allow us to pull 10 new gifs each time the same button is selected.
+    var offsetStr = "&offset=" + offset;
+    var baseURL = "https://api.giphy.com/v1/gifs/search?api_key=OXaAQusBTQE0O5Sl8XgfGrioVNpsQBj3&limit=10&q=";
+    var queryURL = baseURL + topic + offsetStr;
+    // update the data-offset field
+    var newOffset = parseInt(dataOffset) + 1;
+    console.log(newOffset);
+    $(this).attr("data-offset", newOffset);
+
+    console.log(queryURL);
     $.ajax({
       url: queryURL,
       method: "GET"
@@ -17,15 +27,30 @@ $(document).ready(function () {
       for (i = 0; i < data.length; i++) {
         var stillGIF = data[i].images.fixed_height_still.url;
         var animatedGIF = data[i].images.fixed_height.url;
+        var rating = data[i].rating;
+        var title = data[i].title;
+
+        if (title === "") {
+          title = "None provided."
+        }
 
         // create gif element
+        var newGifDiv = $("<div>");
         var newGif = $("<img>");
+        var gifDesc = $("<p>"); // gif description element
         newGif.attr("data-state", "still");
         newGif.attr("src", stillGIF); // image on page is static by default
         newGif.attr("data-still", stillGIF); // source url of static image
         newGif.attr("data-animated", animatedGIF); // source url of animated image
         newGif.addClass("gif") // add the gif class to the image
-        newGif.prependTo("#gifs"); // add to the gifs w
+
+        gifDesc.html("<h4>Rating: " + rating + "<br>Title: " + title);
+
+        gifDesc.appendTo(newGifDiv);
+        newGif.appendTo(newGifDiv);
+        newGifDiv.addClass("gif-div");
+
+        newGifDiv.prependTo("#gifs"); // add to the gifs w
       }
     });
 
@@ -53,6 +78,8 @@ $(document).ready(function () {
       newButton = $("<button>");
       // add topic to id attribute
       newButton.attr("data-topic", topics[i]);
+      // add pagination incrementing
+      newButton.attr("data-offset", "0")
       // add bootstrap btn class
       newButton.addClass("btn");
       // add the topic name to the button
