@@ -1,11 +1,11 @@
-var topics = ["wrc", "lfc", "rallycross", "drifting", "imsa", "mr-robot"]
+var topics = ["wrc", "formula 1", "rally cross", "silverstone", "le mans", "nurburgring"]
 
 $(document).ready(function () {
 
   // this function pulls the gifs from giphy
   function fetchGifs() {
     var topic = $(this).attr("data-topic");
-    var baseURL = "https://api.giphy.com/v1/gifs/search?api_key=OXaAQusBTQE0O5Sl8XgfGrioVNpsQBj3&limit=10&q=";
+    var baseURL = "https://api.giphy.com/v1/gifs/search?api_key=OXaAQusBTQE0O5Sl8XgfGrioVNpsQBj3&limit=10&rating=g&q=";
     var queryURL = baseURL + topic;
     $.ajax({
       url: queryURL,
@@ -54,7 +54,7 @@ $(document).ready(function () {
       // add topic to id attribute
       newButton.attr("data-topic", topics[i]);
       // add bootstrap btn class
-      newButton.addClass("btn btn-info");
+      newButton.addClass("btn");
       // add the topic name to the button
       newButton.text(topics[i]);
       // Lastly append the new button to #gifs
